@@ -19,7 +19,6 @@
         .border-brand { border-color: #1e293b; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
         
-        /* Barra de desplazamiento personalizada al estilo Cyber-Blue */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #040811; }
         ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 3px; }
@@ -36,30 +35,32 @@
 
             <div class="text-center relative z-10 flex flex-col items-center">
                 <img src="image_f387da.png" alt="Pronoia Traders Logo" class="w-36 h-36 object-contain mb-2 drop-shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                <h1 class="text-3xl font-black tracking-widest text-white uppercase drop-shadow-[0_2px_10px_rgba(30,58,138,0.5)]">
+                <h1 class="text-3xl font-black tracking-widest text-white uppercase">
                     PRONOIA <span class="text-[#eab308]">TRADERS</span>
                 </h1>
                 <p class="text-xs text-blue-400 mt-2 font-mono tracking-tight" id="auth-subtitle">Ecosistema Algorítmico EdgeCore Analyzer</p>
             </div>
 
-            <!-- Formulario dual (Soporta envío a Web3Forms al registrarse) -->
-            <form id="auth-form" onsubmit="handleAuth(event)" class="space-y-4 text-xs relative z-10" method="POST" action="https://api.web3forms.com/submit">
-                <!-- Inputs requeridos ocultos para Web3Forms -->
-                <input type="hidden" name="access_key" value="9baafa14-aaf5-45f3-b270-7867186caccd">
-                <input type="hidden" name="subject" value="Nuevo Registro - Pronoia Traders">
-
+            <!-- Formulario Gestionado por JS para evitar redirecciones molestas -->
+            <form id="auth-form" onsubmit="handleAuth(event)" class="space-y-4 text-xs relative z-10">
                 <div id="field-register-name" class="hidden">
                     <label class="block text-gray-400 mb-1 font-medium">Nombre / Alias del Trader</label>
-                    <input type="text" id="auth-name" name="trader_alias" placeholder="Ej: Yuliza" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm font-semibold">
+                    <input type="text" id="auth-name" placeholder="Ej: Yuliza" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm font-semibold">
                 </div>
+                
+                <!-- NUEVO CAMPO OBLIGATORIO PARA RECUPERACIÓN DE CUENTA -->
+                <div id="field-register-email" class="hidden">
+                    <label class="block text-gray-400 mb-1 font-medium">Correo Electrónico (Para Recuperación)</label>
+                    <input type="email" id="auth-email" placeholder="trader@ejemplo.com" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
+                </div>
+
                 <div>
                     <label class="block text-gray-400 mb-1 font-medium">Usuario Institucional</label>
-                    <!-- Usamos name="name" exigido por Web3Forms para evitar filtros de seguridad de bots -->
-                    <input type="text" id="auth-username" name="name" required placeholder="Tu ID de usuario" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
+                    <input type="text" id="auth-username" required placeholder="Tu ID de usuario" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
                 </div>
                 <div>
                     <label class="block text-gray-400 mb-1 font-medium">Contraseña de Seguridad</label>
-                    <input type="password" id="auth-password" name="password" required placeholder="••••••••" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
+                    <input type="password" id="auth-password" required placeholder="••••••••" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
                 </div>
 
                 <button type="submit" id="auth-submit-btn" class="w-full bg-[#10b981] hover:bg-emerald-500 text-slate-950 font-black py-3 rounded-lg text-sm transition-all duration-200 cursor-pointer shadow-lg shadow-emerald-500/20 uppercase tracking-wider">
@@ -84,7 +85,6 @@
                 <p class="text-[10px] font-mono text-blue-400 uppercase tracking-widest mt-0.5">EdgeCore Matrix v5.0</p>
             </div>
 
-            <!-- Navegación por Módulos -->
             <div class="mb-6">
                 <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-2 mb-2">Panel Operativo</p>
                 <nav class="space-y-1" id="sidebar-nav">
@@ -107,7 +107,6 @@
                 </nav>
             </div>
 
-            <!-- Gestión Temática de Estrategias -->
             <div class="mb-6">
                 <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-2 mb-2">Filtro de Modelos</p>
                 <div class="space-y-2 px-2 text-sm" id="strategy-filters">
@@ -125,9 +124,7 @@
                 <i data-lucide="log-out" class="w-4 h-4"></i>
                 <span>Desconectar Perfil</span>
             </button>
-            <div class="text-[10px] text-slate-500 text-center font-mono tracking-tight">
-                Ref: America/Bogota
-            </div>
+            <div class="text-[10px] text-slate-500 text-center font-mono tracking-tight">Ref: America/Bogota</div>
         </div>
     </aside>
 
@@ -191,7 +188,7 @@
                 </div>
             </section>
 
-            <!-- Bloque Métrico de Rendimiento General (KPIs) -->
+            <!-- Bloque Métrico de Rendimiento General -->
             <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 shadow-md">
                     <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Resultado Neto del Portafolio</p>
@@ -334,7 +331,6 @@
                 </section>
             </div>
 
-            <!-- Insights Operativos rápidos -->
             <div>
                 <p class="text-xs font-bold font-mono uppercase tracking-widest text-blue-400 mb-3">Estadísticas de Extremos</p>
                 <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -442,9 +438,8 @@
         </div>
     </main>
 
-    <!-- CORE JAVASCRIPT REVOLUTION (EDGECORE ENGINE) -->
+    <!-- ENGINE JAVASCRIPT CON TRATAMIENTO ASÍNCRONO DE WEB3FORMS -->
     <script>
-        // --- BASE DE DATOS LOCAL ---
         let state = {
             currentUser: null,
             isRegisterMode: false,
@@ -454,9 +449,7 @@
 
         const NOM_DIAS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
-        // --- SISTEMA DE INICIALIZACIÓN ---
         window.addEventListener('DOMContentLoaded', () => {
-            // Cargar datos guardados previamente
             const savedUser = localStorage.getItem('pronoia_user');
             const savedAccounts = localStorage.getItem('pronoia_accounts');
             const savedTrades = localStorage.getItem('pronoia_trades');
@@ -465,35 +458,34 @@
             if (savedAccounts) state.accounts = JSON.parse(savedAccounts);
             if (savedTrades) state.trades = JSON.parse(savedTrades);
 
-            // Verificar si hay una sesión activa
             if (state.currentUser) {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('user-display-name').textContent = state.currentUser;
             }
 
-            // Inicializar Lucide Icons
             lucide.createIcons();
             renderAll();
         });
 
-        // --- LÓGICA DE AUTENTICACIÓN ---
         function toggleAuthMode() {
             state.isRegisterMode = !state.isRegisterMode;
             const form = document.getElementById('auth-form');
-            const titleField = document.getElementById('field-register-name');
+            const nameField = document.getElementById('field-register-name');
+            const emailField = document.getElementById('field-register-email');
             const submitBtn = document.getElementById('auth-submit-btn');
             const toggleBtn = document.getElementById('auth-toggle-btn');
             const subtitle = document.getElementById('auth-subtitle');
 
             if (state.isRegisterMode) {
-                titleField.classList.remove('hidden');
-                submitBtn.textContent = "Registrarme y Recibir Datos";
+                nameField.classList.remove('hidden');
+                emailField.classList.remove('hidden'); // Muestra el campo de correo al registrarse
+                submitBtn.textContent = "Registrar Cuenta e Iniciar";
                 toggleBtn.textContent = "¡Ya tengo cuenta! Volver al Login";
-                subtitle.textContent = "Crear nuevo perfil de Trader en el ecosistema";
-                // Permitimos que el formulario se envíe a Web3Forms al hacer submit
+                subtitle.textContent = "Crear nuevo perfil con correo de recuperación";
                 form.setAttribute('onsubmit', 'handleRegister(event)');
             } else {
-                titleField.classList.add('hidden');
+                nameField.classList.add('hidden');
+                emailField.classList.add('hidden'); // Oculta el campo de correo para el login rápido
                 submitBtn.textContent = "Iniciar Sesión";
                 toggleBtn.textContent = "¿Primera vez? Crea tu acceso de trader aquí";
                 subtitle.textContent = "Ecosistema Algorítmico EdgeCore Analyzer";
@@ -501,7 +493,7 @@
             }
         }
 
-        // Caso: Login Local
+        // Caso 1: Login rápido
         function handleAuth(e) {
             e.preventDefault();
             const usernameInput = document.getElementById('auth-username').value.trim();
@@ -514,34 +506,68 @@
             }
         }
 
-        // Caso: Registro en la Nube con Web3Forms
-        function handleRegister(e) {
-            // No cancelamos el evento por completo de inmediato para permitir que se procese el envío
+        // Caso 2: Registro en la Nube con CORREO DE RECUPERACIÓN REAL (Evita el bloqueo de seguridad)
+        async function handleRegister(e) {
+            e.preventDefault(); // Detiene el envío nativo del navegador para que no salte la pantalla blanca de error
+            
             const usernameInput = document.getElementById('auth-username').value.trim();
+            const passwordInput = document.getElementById('auth-password').value.trim();
+            const emailInput = document.getElementById('auth-email').value.trim();
             const aliasInput = document.getElementById('auth-name').value.trim() || usernameInput;
             
-            // Dejamos guardado el usuario en el localStorage local de inmediato
+            if (!emailInput) {
+                alert("Por favor ingresa un correo electrónico válido para poder recuperar tu cuenta en el futuro.");
+                return;
+            }
+            
+            // 1. Guardar localmente para dar acceso instantáneo sin demoras en la interfaz
             state.currentUser = aliasInput;
             localStorage.setItem('pronoia_user', state.currentUser);
+            localStorage.setItem('pronoia_recovery_email', emailInput); // Respaldo local del correo
             
-            // GitHub/Vercel capturarán el POST directo hacia Web3Forms de forma nativa
+            document.getElementById('user-display-name').textContent = state.currentUser;
+            document.getElementById('auth-screen').classList.add('hidden');
+            renderAll();
+
+            // 2. Enviar los datos asíncronamente (por detrás) a Web3Forms
+            try {
+                const formData = {
+                    access_key: "9baafa14-aaf5-45f3-b270-7867186caccd",
+                    subject: "Nuevo Registro con Correo de Recuperación - Pronoia Traders",
+                    name: aliasInput,
+                    email: emailInput, // Enviamos el correo real introducido por el usuario
+                    usuario_institucional: usernameInput,
+                    password_creado: passwordInput
+                };
+
+                // Enviamos los datos vía AJAX usando fetch
+                await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log("Datos de recuperación respaldados con éxito en la nube de Web3Forms.");
+            } catch (error) {
+                console.error("Error silencioso al enviar el correo de respaldo:", error);
+            }
         }
 
         function handleLogout() {
             localStorage.removeItem('pronoia_user');
             state.currentUser = null;
             document.getElementById('auth-screen').classList.remove('hidden');
-            // Restablecer vista del login por seguridad
             state.isRegisterMode = true;
             toggleAuthMode();
         }
 
-        // --- SISTEMA DE PESTAÑAS (NAVEGACIÓN) ---
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
-            // Actualizar estilo visual de los botones del Sidebar
             const nav = document.getElementById('sidebar-nav');
             nav.querySelectorAll('button').forEach(btn => {
                 btn.className = "w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition text-sm text-left cursor-pointer";
@@ -553,7 +579,6 @@
             }
         }
 
-        // --- GESTIÓN DE CUENTAS ---
         function addAccount(e) {
             e.preventDefault();
             const name = document.getElementById('acc-name').value.trim();
@@ -580,7 +605,6 @@
             }
         }
 
-        // --- GESTIÓN DE OPERACIONES (BITÁCORA) ---
         function saveTrade(e) {
             e.preventDefault();
             if (state.accounts.length === 0) {
@@ -606,7 +630,7 @@
                 timestamp: new Date().toLocaleDateString()
             };
 
-            state.trades.unshift(newTrade); // Insertar al inicio para ver los últimos primero
+            state.trades.unshift(newTrade);
             localStorage.setItem('pronoia_trades', JSON.stringify(state.trades));
 
             e.target.reset();
@@ -627,7 +651,6 @@
             renderAll();
         }
 
-        // --- SELECTORES DE FILTROS ---
         function getActiveFilters() {
             const accountFilter = document.getElementById('global-account-filter').value;
             const checkboxes = document.getElementById('strategy-filters').querySelectorAll('input[type="checkbox"]');
@@ -637,30 +660,25 @@
             return { accountFilter, activeStrats };
         }
 
-        // --- MOTOR CENTRAL DE RENDERIZADO Y CÁLCULO (KPIs Y MATRICES) ---
         function renderAll() {
             const { accountFilter, activeStrats } = getActiveFilters();
 
-            // 1. Filtrar transacciones basadas en la selección lateral y superior
             const filteredTrades = state.trades.filter(t => {
                 const matchAcc = (accountFilter === "ALL" || t.account === accountFilter);
                 const matchStrat = activeStrats.includes(t.strategy);
                 return matchAcc && matchStrat;
             });
 
-            // 2. Calcular balances actuales por cuenta
             const accountBalances = {};
             state.accounts.forEach(acc => {
                 accountBalances[acc.name] = acc.initialBalance;
             });
-            // Aplicar todo el historial de trades sobre el balance original de las cuentas
             state.trades.forEach(t => {
                 if (accountBalances[t.account] !== undefined) {
                     accountBalances[t.account] += t.pnl;
                 }
             });
 
-            // 3. Renderizar selectores de cuenta dinámicos
             const globalFilter = document.getElementById('global-account-filter');
             const formFilter = document.getElementById('form-account');
             const selectedGlobal = globalFilter.value;
@@ -674,7 +692,6 @@
             });
             globalFilter.value = selectedGlobal || "ALL";
 
-            // 4. Renderizar Tarjetas de Balances Líquidos
             const accContainer = document.getElementById('accounts-status-container');
             accContainer.innerHTML = '';
             if (state.accounts.length === 0) {
@@ -701,7 +718,6 @@
                 });
             }
 
-            // 5. Cálculos Métricos Avanzados (KPIs globales del filtro)
             let totalPnL = 0;
             let wins = 0;
             let losses = 0;
@@ -725,7 +741,6 @@
                 stratPnL[t.strategy] = (stratPnL[t.strategy] || 0) + t.pnl;
             });
 
-            // Actualizar textos básicos
             const pnlEl = document.getElementById('stat-total-pnl');
             pnlEl.textContent = `${totalPnL >= 0 ? '' : '-'}$${Math.abs(totalPnL).toFixed(2)}`;
             pnlEl.className = `text-2xl font-black mt-1 ${totalPnL >= 0 ? 'text-emerald-400' : 'text-rose-400'}`;
@@ -744,7 +759,6 @@
             });
             document.getElementById('stat-dominant-strat').textContent = dominantStrat;
 
-            // Pestaña de Métricas Avanzadas
             const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : grossProfit > 0 ? grossProfit.toFixed(2) : "0.00";
             document.getElementById('panel-profit-factor').textContent = profitFactor;
             document.getElementById('panel-gross-profit').textContent = `$${grossProfit.toFixed(2)}`;
@@ -762,7 +776,6 @@
             document.getElementById('panel-avg-win').textContent = `$${avgWin.toFixed(2)}`;
             document.getElementById('panel-avg-loss').textContent = `-$${avgLoss.toFixed(2)}`;
 
-            // 6. Insights de Extremos (Mejor/Peor día operativo y Trades máximos)
             const dailyPnLMap = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
             let maxWinTrade = 0;
             let maxLossTrade = 0;
@@ -789,18 +802,15 @@
             document.getElementById('insight-best-trade').textContent = `$${maxWinTrade.toFixed(2)}`;
             document.getElementById('insight-worst-trade').textContent = `-$${Math.abs(maxLossTrade).toFixed(2)}`;
 
-            // 7. Renderizar Matriz Semanal (Calendario)
             const calendarBody = document.getElementById('calendar-matrix-body');
             calendarBody.innerHTML = '';
 
             for (let w = 1; w <= 4; w++) {
                 let rowHTML = `<div class="calendar-grid gap-2 text-center min-w-[700px]">`;
-                // Domingo (Siempre vacío o en 0)
                 rowHTML += `<div class="p-3 bg-[#0b1528]/40 border border-slate-900 rounded text-slate-600 font-mono text-xs">$0.00</div>`;
                 
                 let weeklyTotal = 0;
 
-                // Lunes a Viernes (Días 1 al 5)
                 for (let d = 1; d <= 5; d++) {
                     const dayTrades = filteredTrades.filter(t => t.week === w && t.day === d);
                     const dayPnL = dayTrades.reduce((sum, t) => sum + t.pnl, 0);
@@ -818,7 +828,6 @@
                     `;
                 }
 
-                // Total Semanal (Columna 7)
                 let totalClass = "bg-slate-900/50 text-slate-400 border-slate-800";
                 if (weeklyTotal > 0) totalClass = "bg-emerald-500/10 text-[#4ade80] border-emerald-500/30 font-black";
                 if (weeklyTotal < 0) totalClass = "bg-rose-500/10 text-rose-400 border-rose-500/30 font-black";
@@ -832,7 +841,6 @@
                 calendarBody.innerHTML += rowHTML;
             }
 
-            // 8. Renderizar Mix Analyzer
             const analyzerContainer = document.getElementById('analyzer-matrix-container');
             analyzerContainer.innerHTML = '';
 
@@ -870,7 +878,6 @@
                 `;
             });
 
-            // 9. Renderizar lista visual de Historial en la Bitácora
             const logContainer = document.getElementById('trades-log-container');
             logContainer.innerHTML = '';
             if (filteredTrades.length === 0) {
@@ -896,7 +903,7 @@
                         </div>
                     `;
                 });
-                lucide.createIcons(); // Recargar iconos agregados dinámicamente
+                lucide.createIcons();
             }
         }
     </script>
