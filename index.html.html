@@ -3,729 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronoia Traders - EdgeCore Multi-Account Analyzer</title>
-    <!-- Tailwind CSS v4 -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>PRONOIA TRADERS - Acceso</title>
     <style>
-        body { 
-            background-color: #040811; 
-            color: #e2e8f0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .bg-sidebar { background-color: #070d1a; }
-        .bg-card-custom { background-color: #0b1528; }
-        .border-brand { border-color: #1e293b; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
-        
-        /* Barra de desplazamiento personalizada al estilo Cyber-Blue */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #040811; }
-        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        body {
+            background-color: #060709;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background: #0d1117;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-box h2 {
+            color: #00f0ff;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .header-box p {
+            color: #8492a6;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #e5e7eb;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00f0ff;
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #484f58;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #00f0ff;
+            color: #060709;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #00c8d6;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 11px;
+            color: #484f58;
+            line-height: 1.5;
+        }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body>
 
-    <!-- PANTALLA DE AUTENTICACIÓN LOCAL SEGURA -->
-    <div id="auth-screen" class="fixed inset-0 bg-[#040811] z-50 flex items-center justify-center p-4">
-        <div class="bg-[#0b1528] p-8 rounded-2xl border border-blue-900/40 w-full max-w-md space-y-6 shadow-2xl relative overflow-hidden">
-            <!-- Efecto de brillo de fondo inspirado en el logo -->
-            <div class="absolute -top-24 -left-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+    <div class="login-container">
+        <div class="header-box">
+            <h2>PRONOIA TRADERS</h2>
+            <p>Ecosistema Algorítmico EdgeCore Analyzer</p>
+        </div>
 
-            <div class="text-center relative z-10">
-                <!-- Estilo de Marca basado en image_f387da.png -->
-                <h1 class="text-3xl font-black tracking-widest text-white uppercase drop-shadow-[0_2px_10px_rgba(30,58,138,0.5)]">
-                    PRONOIA <span class="text-[#eab308]">TRADERS</span>
-                </h1>
-                <p class="text-xs text-blue-400 mt-2 font-mono tracking-tight" id="auth-subtitle">Ecosistema Algorítmico EdgeCore Analyzer</p>
+        <!-- 
+          IMPORTANTE: Reemplaza el enlace de abajo por tu enlace de Formspree 
+          para que los correos te lleguen a ti y a tu cliente.
+        -->
+        <form action="https://formspree.io/f/maqzkpjeSO" method="POST">
+            
+            <div class="form-group">
+                <label for="username">Usuario Institucional</label>
+                <input type="text" name="username" id="username" placeholder="Tu ID de usuario" required>
             </div>
 
-            <form onsubmit="handleAuth(event)" class="space-y-4 text-xs relative z-10">
-                <div id="field-register-name" class="hidden">
-                    <label class="block text-gray-400 mb-1 font-medium">Nombre / Alias del Trader</label>
-                    <input type="text" id="auth-name" placeholder="Ej: Yuliza" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm font-semibold">
-                </div>
-                <div>
-                    <label class="block text-gray-400 mb-1 font-medium">Usuario Institucional</label>
-                    <input type="text" id="auth-username" required placeholder="Tu ID de usuario" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
-                </div>
-                <div>
-                    <label class="block text-gray-400 mb-1 font-medium">Contraseña de Seguridad</label>
-                    <input type="password" id="auth-password" required placeholder="••••••••" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#10b981] text-sm">
-                </div>
-
-                <button type="submit" id="auth-submit-btn" class="w-full bg-[#10b981] hover:bg-emerald-500 text-slate-950 font-black py-3 rounded-lg text-sm transition-all duration-200 cursor-pointer shadow-lg shadow-emerald-500/20 uppercase tracking-wider">
-                    Iniciar Sesión
-                </button>
-            </form>
-
-            <div class="text-center text-xs border-t border-slate-800 pt-4 relative z-10">
-                <button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-blue-400 hover:text-blue-300 transition underline cursor-pointer">
-                    ¿Primera vez? Crea tu acceso de trader aquí
-                </button>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" name="email" id="email" placeholder="tu-correo@ejemplo.com" required>
             </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña de Seguridad</label>
+                <input type="password" name="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Registrarme y Recibir Datos</button>
+        </form>
+
+        <div class="footer-note">
+            Al registrarte, recibirás un correo de verificación con tus credenciales guardadas para soporte y recuperación de cuenta.
         </div>
     </div>
 
-    <!-- SIDEBAR COMPONENT -->
-    <aside class="w-64 bg-[#070d1a] flex flex-col justify-between border-r border-slate-800/60 p-4 shrink-0">
-        <div>
-            <div class="mb-8 px-2">
-                <h1 class="text-xl font-black tracking-wider text-white">PRONOIA <span class="text-[#eab308]">TRADERS</span></h1>
-                <p class="text-[10px] font-mono text-blue-400 uppercase tracking-widest mt-0.5">EdgeCore Matrix v5.0</p>
-            </div>
-
-            <!-- Navegación por Módulos -->
-            <div class="mb-6">
-                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-2 mb-2">Panel Operativo</p>
-                <nav class="space-y-1" id="sidebar-nav">
-                    <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-blue-950/40 text-blue-400 font-medium text-sm text-left cursor-pointer border border-blue-900/30">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        <span>Dashboard & Cuentas</span>
-                    </button>
-                    <button onclick="switchTab('calendario')" id="btn-calendario" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition text-sm text-left cursor-pointer">
-                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                        <span>Calendario Pro & KPIs</span>
-                    </button>
-                    <button onclick="switchTab('analyzer')" id="btn-analyzer" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition text-sm text-left cursor-pointer">
-                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
-                        <span>Mix Analyzer</span>
-                    </button>
-                </nav>
-            </div>
-
-            <!-- Gestión Temática de Estrategias -->
-            <div class="mb-6">
-                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-2 mb-2">Filtro de Modelos</p>
-                <div class="space-y-2 px-2 text-sm" id="strategy-filters">
-                    <label class="flex items-center space-x-2 text-slate-300 cursor-pointer"><input type="checkbox" value="ORO BREAKOUT" checked onchange="renderAll()" class="rounded accent-[#10b981]"> <span>ORO BREAKOUT</span></label>
-                    <label class="flex items-center space-x-2 text-slate-300 cursor-pointer"><input type="checkbox" value="ORO PROFIT" checked onchange="renderAll()" class="rounded accent-[#10b981]"> <span>ORO PROFIT</span></label>
-                    <label class="flex items-center space-x-2 text-slate-300 cursor-pointer"><input type="checkbox" value="INDICES PROFIT" checked onchange="renderAll()" class="rounded accent-[#10b981]"> <span>INDICES PROFIT</span></label>
-                    <label class="flex items-center space-x-2 text-slate-300 cursor-pointer"><input type="checkbox" value="BTC PROFIT" checked onchange="renderAll()" class="rounded accent-[#10b981]"> <span>BTC PROFIT</span></label>
-                    <label class="flex items-center space-x-2 text-slate-300 cursor-pointer"><input type="checkbox" value="NASPROFIT" checked onchange="renderAll()" class="rounded accent-[#10b981]"> <span>NASPROFIT</span></label>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Footer de Sidebar -->
-        <div class="pt-4 border-t border-slate-800 space-y-2">
-            <button onclick="handleLogout()" class="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-rose-400 hover:bg-rose-950/20 transition text-xs font-medium cursor-pointer">
-                <i data-lucide="log-out" class="w-4 h-4"></i>
-                <span>Desconectar Perfil</span>
-            </button>
-            <div class="text-[10px] text-slate-500 text-center font-mono tracking-tight">
-                Ref: America/Bogota
-            </div>
-        </div>
-    </aside>
-
-    <!-- ÁREA DE CONTENIDO PRINCIPAL -->
-    <main class="flex-1 flex flex-col overflow-y-auto p-6 space-y-6">
-        
-        <!-- BIENVENIDA PERSONALIZADA -->
-        <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-[#0b1528] p-5 rounded-xl border border-slate-800/80 shadow-xl">
-            <div>
-                <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                    Panel de Control de <span id="user-display-name" class="text-[#10b981] font-black">Trader</span>
-                </h2>
-                <div class="text-xs text-slate-400 mt-1 flex items-center gap-2">
-                    <span>Monitoreando portafolio operativo:</span>
-                    <select id="global-account-filter" onchange="renderAll()" class="bg-[#040811] border border-slate-700 rounded-lg px-2 py-0.5 text-blue-400 font-bold focus:outline-none cursor-pointer text-xs">
-                        <option value="ALL">Todas las Cuentas</option>
-                    </select>
-                </div>
-            </div>
-            <div class="text-xs font-mono font-bold text-slate-400 bg-[#040811] px-4 py-2 rounded-lg border border-slate-800 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Ecosistema: <span class="text-[#eab308] font-bold">Pronoia Live Audit</span>
-            </div>
-        </header>
-
-        <!-- PESTAÑA: DASHBOARD & CUENTAS -->
-        <div id="tab-dashboard" class="space-y-6 tab-content">
-            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Formulario de Alta de Cuentas -->
-                <div class="bg-[#0b1528] p-5 rounded-xl border border-slate-800/80 shadow-lg">
-                    <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2 border-b border-slate-800 pb-2">
-                        <i data-lucide="wallet" class="w-4 h-4 text-[#10b981]"></i> Matricular Nueva Cuenta
-                    </h3>
-                    <form onsubmit="addAccount(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block text-slate-400 mb-1">Nombre Único / ID</label>
-                            <input type="text" id="acc-name" required placeholder="Ej: FFF-XAU-100k" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                        </div>
-                        <div>
-                            <label class="block text-slate-400 mb-1">Broker o Firma de Fondeo</label>
-                            <input type="text" id="acc-company" required placeholder="Ej: MyFundedFutures" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                        </div>
-                        <div>
-                            <label class="block text-slate-400 mb-1">Balance de Apertura ($ USD)</label>
-                            <input type="number" id="acc-balance" required placeholder="Ej: 50000" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                        </div>
-                        <button type="submit" class="w-full bg-[#10b981] hover:bg-emerald-500 text-slate-950 font-bold p-2.5 rounded-lg transition-all cursor-pointer tracking-wide uppercase">
-                            Vincular Cuenta
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Visor General de Balances de Cuentas -->
-                <div class="bg-[#0b1528] p-5 rounded-xl border border-slate-800/80 lg:col-span-2 shadow-lg">
-                    <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i data-lucide="layers" class="w-4 h-4 text-[#10b981]"></i> Balances Líquidos en Tiempo Real
-                        </h3>
-                        <button onclick="clearAccounts()" class="text-xs text-rose-400 hover:underline cursor-pointer">Formatear Cuentas</button>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[190px] overflow-y-auto pr-1" id="accounts-status-container"></div>
-                </div>
-            </section>
-
-            <!-- Bloque Métrico de Rendimiento General (KPIs) -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 shadow-md">
-                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Resultado Neto del Portafolio</p>
-                    <p class="text-2xl font-black mt-1" id="stat-total-pnl">$0.00</p>
-                    <p class="text-xs text-slate-500 mt-2 font-mono" id="stat-count-trades">0 ejecuciones en base de datos</p>
-                </div>
-                <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 shadow-md">
-                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Efectividad de Ejecución</p>
-                    <p class="text-2xl font-black text-[#4ade80] mt-1" id="stat-general-wr">0%</p>
-                    <p class="text-xs text-slate-500 mt-2">Métrica global de aciertos (Win Rate)</p>
-                </div>
-                <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 shadow-md">
-                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Alfa Dominante (Estrategia)</p>
-                    <p class="text-xl font-bold text-[#eab308] mt-1" id="stat-dominant-strat">N/A</p>
-                    <p class="text-xs text-slate-500 mt-2">Modelo con mejor rendimiento neto</p>
-                </div>
-            </section>
-
-            <!-- Bitácora Manual e Historial -->
-            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Registrador de Operación -->
-                <div class="bg-[#0b1528] p-5 rounded-xl border border-slate-800/80 shadow-lg">
-                    <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-                        <i data-lucide="plus-circle" class="w-4 h-4 text-[#10b981]"></i> Registrar Operación Ejecutada
-                    </h3>
-                    <form onsubmit="saveTrade(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block text-slate-400 mb-1">Cuenta Destino</label>
-                            <select id="form-account" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]"></select>
-                        </div>
-                        <div>
-                            <label class="block text-slate-400 mb-1">Estrategia Aplicada</label>
-                            <select id="form-strategy" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                                <option>ORO BREAKOUT</option>
-                                <option>ORO PROFIT</option>
-                                <option>INDICES PROFIT</option>
-                                <option>BTC PROFIT</option>
-                                <option>NASPROFIT</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-slate-400 mb-1">Día de la Semana</label>
-                                <select id="form-day" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                                    <option value="1">Lunes</option>
-                                    <option value="2">Martes</option>
-                                    <option value="3">Miércoles</option>
-                                    <option value="4">Jueves</option>
-                                    <option value="5">Viernes</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Índice de Semana</label>
-                                <select id="form-week" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                                    <option value="1">Semana 1</option>
-                                    <option value="2">Semana 2</option>
-                                    <option value="3">Semana 3</option>
-                                    <option value="4">Semana 4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-slate-400 mb-1">Resultado Neto ($)</label>
-                                <input type="number" step="0.01" id="form-pnl" required placeholder="Ej: 450 o -200" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Etiqueta</label>
-                                <select id="form-status" class="w-full bg-[#040811] border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-[#10b981]">
-                                    <option value="TP">Take Profit (TP)</option>
-                                    <option value="SL">Stop Loss (SL)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full bg-[#10b981] hover:bg-emerald-500 text-slate-950 font-bold p-2.5 rounded-lg transition mt-2 cursor-pointer uppercase tracking-wider">
-                            Inscribir en Bitácora
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Visor del Historial Operativo Local -->
-                <div class="bg-[#0b1528] p-5 rounded-xl border border-slate-800/80 lg:col-span-2 flex flex-col shadow-lg">
-                    <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i data-lucide="scroll-text" class="w-4 h-4 text-[#10b981]"></i> Registro Histórico Auditado
-                        </h3>
-                        <button onclick="clearTrades()" class="text-xs text-rose-400 hover:underline cursor-pointer">Vaciar Bitácora</button>
-                    </div>
-                    <div class="flex-1 overflow-y-auto max-h-[250px] space-y-2 pr-1" id="trades-log-container"></div>
-                </div>
-            </section>
-        </div>
-
-        <!-- PESTAÑA: CALENDARIO PRO & METRICAS -->
-        <div id="tab-calendario" class="space-y-6 tab-content hidden">
-            <div>
-                <p class="text-xs font-bold font-mono uppercase tracking-widest text-blue-400 mb-3">Métricas Avanzadas (Averages & Ratio)</p>
-                <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 flex justify-between items-center shadow-md">
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium uppercase">Profit Factor</p>
-                            <p class="text-3xl font-black text-white mt-2" id="panel-profit-factor">0.00</p>
-                            <div class="mt-3 text-[11px] text-slate-500 font-mono space-y-0.5">
-                                <p>Bruto Ganado: <span class="text-[#4ade80]" id="panel-gross-profit">$0.00</span></p>
-                                <p>Bruto Perdido: <span class="text-rose-400" id="panel-gross-loss">$0.00</span></p>
-                            </div>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                            <i data-lucide="activity" class="w-5 h-5 text-[#4ade80]"></i>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 flex justify-between items-center shadow-md">
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium uppercase">Efectividad Neta</p>
-                            <p class="text-3xl font-black text-[#4ade80] mt-2" id="panel-winrate-pct">0.0%</p>
-                            <div class="mt-3 text-[11px] text-slate-500 space-y-0.5">
-                                <p><span class="text-[#4ade80]">● Ganadas:</span> <span id="panel-win-count" class="text-white font-bold">0</span></p>
-                                <p><span class="text-rose-400">● Perdidas:</span> <span id="panel-loss-count" class="text-white font-bold">0</span></p>
-                            </div>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
-                            <i data-lucide="pie-chart" class="w-5 h-5 text-blue-400"></i>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80 flex justify-between items-center shadow-md">
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium uppercase">Ratio Promedio R:R</p>
-                            <p class="text-3xl font-black text-white mt-2" id="panel-avg-ratio">0.00</p>
-                            <div class="mt-3 text-[11px] text-slate-500 space-y-0.5">
-                                <p>Media Ganancia: <span class="text-[#4ade80]" id="panel-avg-win">$0.00</span></p>
-                                <p>Media Pérdida: <span class="text-rose-400" id="panel-avg-loss">$0.00</span></p>
-                            </div>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center">
-                            <i data-lucide="arrow-up-down" class="w-5 h-5 text-slate-400"></i>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Insights Operativos rápidos -->
-            <div>
-                <p class="text-xs font-bold font-mono uppercase tracking-widest text-blue-400 mb-3">Estadísticas de Extremos</p>
-                <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80">
-                        <p class="text-xs text-slate-400 font-medium uppercase flex justify-between">Mejor Jornada <span class="text-[#4ade80] font-bold" id="insight-best-day-val">$0.00</span></p>
-                        <p class="text-lg font-bold text-white mt-2" id="insight-best-day-name">N/A</p>
-                    </div>
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80">
-                        <p class="text-xs text-slate-400 font-medium uppercase flex justify-between">Peor Jornada <span class="text-rose-400 font-bold" id="insight-worst-day-val">$0.00</span></p>
-                        <p class="text-lg font-bold text-white mt-2" id="insight-worst-day-name">N/A</p>
-                    </div>
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80">
-                        <p class="text-xs text-slate-400 font-medium uppercase">Trade Max Ganancia</p>
-                        <p class="text-2xl font-black text-[#4ade80] mt-2" id="insight-best-trade">$0.00</p>
-                    </div>
-                    <div class="bg-[#0b1528] p-4 rounded-xl border border-slate-800/80">
-                        <p class="text-xs text-slate-400 font-medium uppercase">Trade Max Pérdida</p>
-                        <p class="text-2xl font-black text-rose-400 mt-2" id="insight-worst-trade">$0.00</p>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Matriz Mensual (Calendario de Rendimiento) -->
-            <div>
-                <p class="text-xs font-bold font-mono uppercase tracking-widest text-blue-400 mb-3">Matriz Semanal de Rendimiento Mensual</p>
-                <section class="bg-[#0b1528] p-6 rounded-xl border border-slate-800/80 overflow-x-auto shadow-xl">
-                    <div class="calendar-grid gap-2 text-center text-xs font-bold text-slate-400 mb-2 min-w-[700px]">
-                        <div class="py-2 bg-[#040811] rounded">Domingo</div>
-                        <div class="py-2 bg-[#040811] rounded">Lunes</div>
-                        <div class="py-2 bg-[#040811] rounded">Martes</div>
-                        <div class="py-2 bg-[#040811] rounded">Miércoles</div>
-                        <div class="py-2 bg-[#040811] rounded">Jueves</div>
-                        <div class="py-2 bg-[#040811] rounded">Viernes</div>
-                        <div class="py-2 bg-blue-950/50 text-blue-400 rounded border border-blue-900/30">Total Semanal</div>
-                    </div>
-                    <div class="space-y-2 min-w-[700px]" id="calendar-matrix-body"></div>
-                </section>
-            </div>
-        </div>
-
-        <!-- PESTAÑA: MIX ANALYZER -->
-        <div id="tab-analyzer" class="space-y-6 tab-content hidden">
-            <section class="bg-[#0b1528] p-5 rounded-xl border border-slate-800/80 shadow-xl">
-                <div class="mb-4 border-b border-slate-800 pb-3">
-                    <h3 class="text-md font-bold text-white">Desglose Probabilístico EdgeCore</h3>
-                    <p class="text-xs text-slate-400">Rendimiento segmentado de tus modelos cuantitativos activos.</p>
-                </div>
-                <div class="space-y-3" id="analyzer-matrix-container"></div>
-            </section>
-        </div>
-
-    </main>
-
-    <!-- SISTEMA JS UNIFICADO CON PERSISTENCIA DE USUARIO LOCAL -->
-    <script>
-        let isRegisterMode = false;
-        let currentUser = JSON.parse(localStorage.getItem('pronoia_logged_in_user')) || null;
-        let accounts = [];
-        let trades = [];
-
-        function toggleAuthMode() {
-            isRegisterMode = !isRegisterMode;
-            const fieldName = document.getElementById('field-register-name');
-            const subtitle = document.getElementById('auth-subtitle');
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const toggleBtn = document.getElementById('auth-toggle-btn');
-
-            if (isRegisterMode) {
-                fieldName.classList.remove('hidden');
-                subtitle.innerText = "Crea una base de datos local cifrada para tus cuentas";
-                submitBtn.innerText = "Crear Cuenta de Trader";
-                toggleBtn.innerText = "¿Ya tienes un perfil? Identifícate aquí";
-            } else {
-                fieldName.classList.add('hidden');
-                subtitle.innerText = "Ecosistema Algorítmico EdgeCore Analyzer";
-                submitBtn.innerText = "Iniciar Sesión";
-                toggleBtn.innerText = "¿Primera vez? Crea tu acceso de trader aquí";
-            }
-        }
-
-        function handleAuth(e) {
-            e.preventDefault();
-            const usernameInput = document.getElementById('auth-username').value.trim().toLowerCase();
-            const passwordInput = document.getElementById('auth-password').value;
-            const nameInput = document.getElementById('auth-name').value.trim();
-
-            if (isRegisterMode) {
-                if(!nameInput) { alert("Por favor, introduce tu alias de operador."); return; }
-                const userProfile = { name: nameInput, username: usernameInput, password: passwordInput };
-                localStorage.setItem(`user_profile_${usernameInput}`, JSON.stringify(userProfile));
-                alert("¡Cuenta de trader configurada! Ya puedes loguearte.");
-                toggleAuthMode();
-            } else {
-                const savedUser = JSON.parse(localStorage.getItem(`user_profile_${usernameInput}`));
-                if (savedUser && savedUser.password === passwordInput) {
-                    currentUser = savedUser;
-                    localStorage.setItem('pronoia_logged_in_user', JSON.stringify(currentUser));
-                    checkSession();
-                } else {
-                    alert("Acceso denegado. Revisa tu ID de usuario y clave.");
-                }
-            }
-        }
-
-        function handleLogout() {
-            localStorage.removeItem('pronoia_logged_in_user');
-            currentUser = null;
-            location.reload();
-        }
-
-        function checkSession() {
-            const authScreen = document.getElementById('auth-screen');
-            if (currentUser) {
-                authScreen.classList.add('hidden');
-                document.getElementById('user-display-name').innerText = currentUser.name;
-                
-                // Cargar datos exclusivos vinculados a este usuario
-                accounts = JSON.parse(localStorage.getItem(`accounts_${currentUser.username}`)) || [];
-                trades = JSON.parse(localStorage.getItem(`trades_v2_${currentUser.username}`)) || [];
-                
-                renderAll();
-            } else {
-                authScreen.classList.remove('hidden');
-            }
-        }
-
-        function switchTab(id) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tab-' + id).classList.remove('hidden');
-            
-            // Reajustar clases de estilo del menú lateral
-            document.querySelectorAll('#sidebar-nav button').forEach(b => {
-                b.className = "w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition text-sm text-left cursor-pointer";
-            });
-            document.getElementById('btn-' + id).className = "w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-blue-950/40 text-blue-400 font-medium text-sm text-left cursor-pointer border border-blue-900/30";
-        }
-
-        function addAccount(e) {
-            e.preventDefault();
-            const newAcc = {
-                id: document.getElementById('acc-name').value.trim(),
-                company: document.getElementById('acc-company').value.trim(),
-                initial: parseFloat(document.getElementById('acc-balance').value)
-            };
-            if(accounts.some(a => a.id === newAcc.id)) { alert("Esta cuenta ya está registrada."); return; }
-            accounts.push(newAcc);
-            localStorage.setItem(`accounts_${currentUser.username}`, JSON.stringify(accounts));
-            
-            document.getElementById('acc-name').value = '';
-            document.getElementById('acc-company').value = '';
-            document.getElementById('acc-balance').value = '';
-            renderAll();
-        }
-
-        function saveTrade(e) {
-            e.preventDefault();
-            if(accounts.length === 0) { alert("Debes registrar al menos una cuenta operativa antes de guardar trades."); return; }
-            const newTrade = {
-                id: Date.now(),
-                account: document.getElementById('form-account').value,
-                strategy: document.getElementById('form-strategy').value,
-                day: parseInt(document.getElementById('form-day').value), 
-                week: parseInt(document.getElementById('form-week').value), 
-                pnl: parseFloat(document.getElementById('form-pnl').value),
-                status: document.getElementById('form-status').value
-            };
-            trades.unshift(newTrade);
-            localStorage.setItem(`trades_v2_${currentUser.username}`, JSON.stringify(trades));
-            document.getElementById('form-pnl').value = '';
-            renderAll();
-        }
-
-        function clearAccounts() { 
-            if(confirm("¿Eliminar todas las cuentas del almacenamiento de este trader? Esto borrará también el historial asociado.")) { 
-                accounts = []; trades = []; 
-                localStorage.removeItem(`accounts_${currentUser.username}`); 
-                localStorage.removeItem(`trades_v2_${currentUser.username}`); 
-                renderAll(); 
-            } 
-        }
-        function clearTrades() { 
-            if(confirm("¿Deseas purgar la bitácora de operaciones actuales?")) { 
-                trades = []; 
-                localStorage.setItem(`trades_v2_${currentUser.username}`, JSON.stringify(trades)); 
-                renderAll(); 
-            } 
-        }
-
-        function getActiveStrategies() {
-            let active = [];
-            document.querySelectorAll('#strategy-filters input').forEach(cb => { if(cb.checked) active.push(cb.value); });
-            return active;
-        }
-
-        function renderAll() {
-            if (!currentUser) return;
-            const activeStrats = getActiveStrategies();
-            const filterAcc = document.getElementById('global-account-filter').value;
-
-            const filterSelect = document.getElementById('global-account-filter');
-            const formSelect = document.getElementById('form-account');
-            const prevFilterVal = filterSelect.value;
-            
-            filterSelect.innerHTML = '<option value="ALL">Todas las Cuentas</option>';
-            formSelect.innerHTML = '';
-            accounts.forEach(a => {
-                filterSelect.innerHTML += `<option value="${a.id}">${a.id} (${a.company})</option>`;
-                formSelect.innerHTML += `<option value="${a.id}">${a.id}</option>`;
-            });
-            if([...filterSelect.options].some(o => o.value === prevFilterVal)) filterSelect.value = prevFilterVal;
-
-            const filteredTrades = trades.filter(t => {
-                return activeStrats.includes(t.strategy) && (filterAcc === 'ALL' || t.account === filterAcc);
-            });
-
-            // Pintar Cuentas y Balances
-            const accContainer = document.getElementById('accounts-status-container');
-            accContainer.innerHTML = '';
-            let dominantStratMap = {};
-
-            accounts.forEach(a => {
-                const accTrades = trades.filter(t => t.account === a.id);
-                const netPnl = accTrades.reduce((sum, t) => sum + t.pnl, 0);
-                const currentBalance = a.initial + netPnl;
-
-                accContainer.innerHTML += `
-                    <div class="bg-[#040811] p-3 rounded-lg border border-slate-800 flex justify-between items-center text-xs">
-                        <div>
-                            <p class="font-bold text-white">${a.id}</p>
-                            <p class="text-blue-400 text-[11px] font-mono">${a.company}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-sm ${netPnl >= 0 ? 'text-[#4ade80]' : 'text-rose-400'}">$${currentBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            if(accounts.length === 0) accContainer.innerHTML = '<p class="text-xs text-slate-500 text-center w-full py-6 font-mono uppercase tracking-wider">Sin Cuentas Registradas</p>';
-
-            // Cálculos del Core Métrico
-            const totalNetPnl = filteredTrades.reduce((sum, t) => sum + t.pnl, 0);
-            document.getElementById('stat-total-pnl').innerText = `${totalNetPnl >= 0 ? '+' : ''}$${totalNetPnl.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-            document.getElementById('stat-total-pnl').className = `text-2xl font-black mt-1 ${totalNetPnl >= 0 ? 'text-[#4ade80]' : 'text-rose-400'}`;
-            document.getElementById('stat-count-trades').innerText = `${filteredTrades.length} órdenes evaluadas en tiempo de ejecución`;
-
-            const wins = filteredTrades.filter(t => t.status === 'TP').length;
-            const losses = filteredTrades.filter(t => t.status === 'SL').length;
-            const generalWR = filteredTrades.length > 0 ? ((wins / filteredTrades.length) * 100).toFixed(0) : 0;
-            document.getElementById('stat-general-wr').innerText = `${generalWR}%`;
-
-            filteredTrades.forEach(t => {
-                dominantStratMap[t.strategy] = (dominantStratMap[t.strategy] || 0) + t.pnl;
-            });
-            let dominantStratName = "N/A";
-            let maxStratPnl = -Infinity;
-            for(let k in dominantStratMap) {
-                if(dominantStratMap[k] > maxStratPnl && dominantStratMap[k] > 0) { maxStratPnl = dominantStratMap[k]; dominantStratName = k; }
-            }
-            document.getElementById('stat-dominant-strat').innerText = dominantStratName;
-
-            // Listado del historial
-            const logContainer = document.getElementById('trades-log-container');
-            logContainer.innerHTML = '';
-            filteredTrades.forEach(t => {
-                logContainer.innerHTML += `
-                    <div class="bg-[#040811] p-2.5 rounded-lg border border-slate-800 flex justify-between items-center text-xs font-mono">
-                        <div>
-                            <span class="font-bold text-blue-400 bg-blue-950/40 px-2 py-0.5 rounded border border-blue-900/30 mr-2 text-[10px]">${t.account}</span>
-                            <span class="text-slate-300 font-sans font-semibold">${t.strategy}</span>
-                        </div>
-                        <span class="font-bold ${t.pnl >= 0 ? 'text-[#4ade80]' : 'text-rose-400'}">${t.pnl >= 0 ? '+' : ''}$${t.pnl.toFixed(2)}</span>
-                    </div>
-                `;
-            });
-
-            // Cálculos Avanzados de Calidad Operativa
-            const grossProfit = filteredTrades.filter(t => t.pnl > 0).reduce((sum, t) => sum + t.pnl, 0);
-            const grossLoss = Math.abs(filteredTrades.filter(t => t.pnl < 0).reduce((sum, t) => sum + t.pnl, 0));
-            const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : grossProfit > 0 ? grossProfit.toFixed(2) : "0.00";
-
-            document.getElementById('panel-profit-factor').innerText = profitFactor;
-            document.getElementById('panel-gross-profit').innerText = `$${grossProfit.toFixed(2)}`;
-            document.getElementById('panel-gross-loss').innerText = `$${grossLoss.toFixed(2)}`;
-            document.getElementById('panel-winrate-pct').innerText = `${generalWR}%`;
-            document.getElementById('panel-win-count').innerText = wins;
-            document.getElementById('panel-loss-count').innerText = losses;
-
-            const winTradesArray = filteredTrades.filter(t => t.pnl > 0);
-            const lossTradesArray = filteredTrades.filter(t => t.pnl < 0);
-            const avgWin = winTradesArray.length > 0 ? (winTradesArray.reduce((sum, t) => sum + t.pnl, 0) / winTradesArray.length) : 0;
-            const avgLoss = lossTradesArray.length > 0 ? Math.abs(lossTradesArray.reduce((sum, t) => sum + t.pnl, 0) / lossTradesArray.length) : 0;
-            const avgRatio = avgLoss > 0 ? (avgWin / avgLoss).toFixed(2) : "0.00";
-
-            document.getElementById('panel-avg-ratio').innerText = avgRatio;
-            document.getElementById('panel-avg-win').innerText = `$${avgWin.toFixed(2)}`;
-            document.getElementById('panel-avg-loss').innerText = `$${avgLoss.toFixed(2)}`;
-
-            // Filtros e Insights Diarios
-            const diaNombres = ["", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-            let dayPnlTotals = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
-            filteredTrades.forEach(t => { dayPnlTotals[t.day] += t.pnl; });
-
-            let bestDayIdx = 1, worstDayIdx = 1;
-            let maxDayPnl = -Infinity, minDayPnl = Infinity;
-            let hasTrades = filteredTrades.length > 0;
-
-            for(let d = 1; d <= 5; d++) {
-                if(dayPnlTotals[d] > maxDayPnl) { maxDayPnl = dayPnlTotals[d]; bestDayIdx = d; }
-                if(dayPnlTotals[d] < minDayPnl) { minDayPnl = dayPnlTotals[d]; worstDayIdx = d; }
-            }
-
-            document.getElementById('insight-best-day-name').innerText = hasTrades ? diaNombres[bestDayIdx] : "N/A";
-            document.getElementById('insight-best-day-val').innerText = hasTrades ? `$${maxDayPnl.toFixed(2)}` : "$0.00";
-            document.getElementById('insight-worst-day-name').innerText = hasTrades ? diaNombres[worstDayIdx] : "N/A";
-            document.getElementById('insight-worst-day-val').innerText = hasTrades ? `$${minDayPnl.toFixed(2)}` : "$0.00";
-
-            let allPnls = filteredTrades.map(t => t.pnl);
-            let maxTrade = hasTrades ? Math.max(...allPnls) : 0;
-            let minTrade = hasTrades ? Math.min(...allPnls) : 0;
-
-            document.getElementById('insight-best-trade').innerText = `$${maxTrade.toFixed(2)}`;
-            document.getElementById('insight-worst-trade').innerText = `$${minTrade.toFixed(2)}`;
-
-            // Generador dinámico de la Matriz del Calendario
-            const calBody = document.getElementById('calendar-matrix-body');
-            calBody.innerHTML = '';
-
-            for (let w = 1; w <= 4; w++) {
-                let weekHtml = `<div class="calendar-grid gap-2 min-w-[700px]">`;
-                weekHtml += `
-                    <div class="bg-[#0b1528] p-3 rounded-lg border border-slate-800 text-left min-h-[70px] flex flex-col justify-between">
-                        <span class="text-slate-600 text-[10px] font-mono font-bold uppercase">S${w} - Dom</span>
-                        <div><p class="text-xs text-slate-600 font-bold font-mono">$0.00</p></div>
-                    </div>
-                `;
-
-                let weekSumPnl = 0, weekSumTrades = 0;
-
-                for (let d = 1; d <= 5; d++) {
-                    const dayTrades = filteredTrades.filter(t => t.week === w && t.day === d);
-                    const dayPnl = dayTrades.reduce((sum, t) => sum + t.pnl, 0);
-                    weekSumPnl += dayPnl;
-                    weekSumTrades += dayTrades.length;
-
-                    let bgDayClass = "bg-[#0b1528] border-slate-800";
-                    let textPnlClass = "text-slate-400";
-                    if (dayTrades.length > 0) {
-                        bgDayClass = dayPnl >= 0 ? "bg-emerald-950/20 border-emerald-500/30" : "bg-rose-950/20 border-rose-500/30";
-                        textPnlClass = dayPnl >= 0 ? "text-[#4ade80]" : "text-rose-400";
-                    }
-
-                    weekHtml += `
-                        <div class="p-3 rounded-lg border text-left min-h-[70px] flex flex-col justify-between ${bgDayClass}">
-                            <span class="text-slate-400 text-[10px] font-mono font-bold uppercase">S${w} - ${diaNombres[d].substring(0,3)}</span>
-                            <div>
-                                <p class="text-xs font-bold font-mono ${textPnlClass}">${dayPnl >= 0 ? '+' : ''}$${dayPnl.toFixed(2)}</p>
-                                <p class="text-[9px] text-slate-500 font-mono">${dayTrades.length} trades</p>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                let bgWeekClass = weekSumTrades > 0 ? (weekSumPnl >= 0 ? "bg-emerald-500/10 border-emerald-500/20 text-[#4ade80]" : "bg-rose-500/10 border-rose-500/20 text-rose-400") : "bg-[#0b1528] border-slate-800 text-blue-400";
-                weekHtml += `
-                    <div class="p-3 rounded-lg border text-left min-h-[70px] flex flex-col justify-between ${bgWeekClass}">
-                        <span class="text-[9px] font-mono font-bold uppercase tracking-wider">Acumulado</span>
-                        <div>
-                            <p class="text-xs font-black font-mono">${weekSumPnl >= 0 ? '+' : ''}$${weekSumPnl.toFixed(2)}</p>
-                        </div>
-                    </div>
-                `;
-                weekHtml += `</div>`;
-                calBody.innerHTML += weekHtml;
-            }
-
-            // Mix Analyzer Tab Panel Renders
-            const analyzerContainer = document.getElementById('analyzer-matrix-container');
-            analyzerContainer.innerHTML = '';
-            const todasLasCinco = ["ORO BREAKOUT", "ORO PROFIT", "INDICES PROFIT", "BTC PROFIT", "NASPROFIT"];
-
-            todasLasCinco.forEach(strat => {
-                if(!activeStrats.includes(strat)) return;
-                const sTrades = filteredTrades.filter(t => t.strategy === strat);
-                const sWins = sTrades.filter(t => t.status === 'TP').length;
-                const sWR = sTrades.length > 0 ? ((sWins / sTrades.length) * 100).toFixed(0) : 0;
-                const sNet = sTrades.reduce((sum, t) => sum + t.pnl, 0);
-
-                analyzerContainer.innerHTML += `
-                    <div class="bg-[#040811] p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center border border-slate-800 text-xs font-mono">
-                        <h4 class="font-bold text-white text-sm w-48 font-sans">${strat}</h4>
-                        <p class="font-bold ${sNet >= 0 ? 'text-[#4ade80]' : 'text-rose-400'}">${sNet >= 0 ? '+' : ''}$${sNet.toFixed(2)} NET P&L</p>
-                        <p class="font-bold ${sTrades.length > 0 ? 'text-blue-400' : 'text-slate-500'}">${sWR}% WIN RATE</p>
-                    </div>
-                `;
-            });
-        }
-
-        lucide.createIcons();
-        checkSession();
-    </script>
 </body>
 </html>
